@@ -1,0 +1,26 @@
+cd asmexample
+unzip asmproject.zip
+cd asmproject
+cd src
+
+------This is to compile Test.java, the test file that we want to instrument/manipulate
+javac Test.java
+
+----- This is to produce a class file in which we instrumented print statement before and after each instruction in Test.class. For the purpose of tracing
+java -cp .:../lib/asm-all-5.0.3.jar SimpleTracing Test.class Test.class
+
+----- This is to run the instrumented version to see the trace
+java Test
+
+----- This is to do the so-called extract method, the example I was given from you.
+java -cp .:../lib/asm-all-5.0.3.jar ExtractMethod Test.class Test.class
+
+----- Run the test again. We expect to see nothing in the output different from the original version of Test.
+java Test
+
+----- Now do tracing on the Test that has been done extract method
+java -cp .:../lib/asm-all-5.0.3.jar SimpleTracing Test.class Test.class
+
+----- We expect to see that the extract method has been done as expected
+java Test
+
